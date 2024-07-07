@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# How to deploy
 
 "npm run deploy" to build and deploy the app on gh pages
 
