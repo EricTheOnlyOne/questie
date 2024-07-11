@@ -1,6 +1,6 @@
 # How to deploy
 
-"npm run deploy" to build and deploy the app on gh pages
+"npm run deploy" to build and deploy the app on gh pages: https://erictheonlyone.github.io/activity_tracker/
 
 # Getting Started with Create React App
 
