@@ -28,7 +28,7 @@
   color: #61dafb;
 }
 
-.Tabs-button {
+.Tabs-button, .Tabs-input {
   cursor: pointer;
   color: white;
   padding: 10px 100px 10px 100px;
@@ -41,18 +41,25 @@
   font-weight: 400;
   font-style: normal;
   transition: background-color 0.2s, transform 0.2s;
+  margin: 10px;
 }
 
-.Tabs-button:hover {
+.Tabs-input {
+  padding: 10px;
+  text-align: center;
+  width: auto;
+}
+
+.Tabs-button:hover, .Tabs-input:hover {
   background-color:rgba(220, 220, 220, 0.1);
   animation: bounce-in 0.22s forwards;
 }
 
-.Tabs-button:active {
+.Tabs-button:active, .Tabs-input:active {
   background-color:rgba(220, 220, 220, 0.2);
 }
 
-.Tabs-button:not(:hover) {
+.Tabs-button:not(:hover), .Tabs-input:not(:hover) {
   animation: bounce-out 0.22s forwards;
 }
 
@@ -75,4 +82,19 @@
   100% {
     transform: scale(1);
   }
+}
+
+.Stopwatch {
+  margin-bottom: 20px;
+}
+
+.Stopwatch-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.Input-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
