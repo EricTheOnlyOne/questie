@@ -4,6 +4,7 @@ import TabsButton from './TabsButton';
 
 
 function Stopwatch() {
+    const [toggleButtonText, setToggleButtonText] = useState('Start');
     const [time, setTime] = useState(3590000);
     const [isActive, setIsActive] = useState(false);
     const [accumulatedTime, setAccumulatedTime] = useState(0);
@@ -30,13 +31,16 @@ function Stopwatch() {
       return () => cancelAnimationFrame(animationFrameId);
     }, [isActive, accumulatedTime]);
   
-    const start = () => {
-      setIsActive(true);
-    };
-  
-    const stop = () => {
-      setIsActive(false);
-      setAccumulatedTime(time);
+    const toggleWatch = () => {
+      if (isActive) {
+        setAccumulatedTime(time);
+        setIsActive(false);
+        setToggleButtonText('Start')
+      } else {
+        setIsActive(true);
+        setToggleButtonText('Stop')
+      }
+      
     };
   
     const reset = () => {
@@ -62,9 +66,13 @@ function Stopwatch() {
     return (
       <div className='Stopwatch'>
         <h1>{formatTime(time)}</h1>
+        <div className="Input-row">
+          <input type="text" className="Tabs-input" placeholder="Reference" />
+          <input type="text" className="Tabs-input" placeholder="Activity" />
+          <TabsButton text='Submit' />
+        </div>
         <div className="Stopwatch-buttons">
-          <TabsButton text='Start' onClick={start} />
-          <TabsButton text='Stop' onClick={stop} />
+          <TabsButton text={toggleButtonText} onClick={toggleWatch} />
           <TabsButton text='Reset' onClick={reset} />
         </div>
       </div>

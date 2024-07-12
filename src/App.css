@@ -50,6 +50,10 @@
   width: auto;
 }
 
+.Tabs-input:focus::placeholder {
+  color: transparent;
+}
+
 .Tabs-button:hover, .Tabs-input:hover {
   background-color:rgba(220, 220, 220, 0.1);
   animation: bounce-in 0.22s forwards;
@@ -61,6 +65,10 @@
 
 .Tabs-button:not(:hover), .Tabs-input:not(:hover) {
   animation: bounce-out 0.22s forwards;
+}
+
+.Tabs-input:focus {
+  outline: none;
 }
 
 @keyframes bounce-in {
