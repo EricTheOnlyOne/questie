@@ -54,7 +54,8 @@
 }
 
 .Tabs-input {
-  padding: 10px;
+  padding: 10px 5px;
+  margin: 0 5px;
   text-align: center;
   width: auto;
 }
@@ -114,4 +115,8 @@
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+}
+
+.icon-button {
+  padding: 5px;
 }

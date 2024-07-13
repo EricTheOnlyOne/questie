@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import TabsButton from './TabsButton';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUndoAlt } from '@fortawesome/free-solid-svg-icons';
+import { faUndoAlt, faCirclePlay, faCirclePause, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
 
 function Stopwatch() {
-    const [toggleButtonText, setToggleButtonText] = useState('Start');
+    const [toggleButtonIcon, setToggleButtonIcon] = useState(faCirclePlay);
     const [time, setTime] = useState(3590000);
     const [isActive, setIsActive] = useState(false);
     const [accumulatedTime, setAccumulatedTime] = useState(0);
@@ -37,10 +36,10 @@ function Stopwatch() {
       if (isActive) {
         setAccumulatedTime(time);
         setIsActive(false);
-        setToggleButtonText('Start');
+        setToggleButtonIcon(faCirclePlay);
       } else {
         setIsActive(true);
-        setToggleButtonText('Stop');
+        setToggleButtonIcon(faCirclePause);
       }
       
     };
@@ -49,7 +48,7 @@ function Stopwatch() {
       setTime(3590000);
       setAccumulatedTime(3590000);
       setIsActive(false);
-      setToggleButtonText('Start');
+      setToggleButtonIcon(faCirclePlay);
     };
   
     const formatTime = (time) => {
@@ -72,11 +71,11 @@ function Stopwatch() {
         <div className="Input-row">
           <input type="text" className="Tabs-input" placeholder="Reference" />
           <input type="text" className="Tabs-input" placeholder="Activity" />
-          <TabsButton text='Submit' />
         </div>
         <div className="Stopwatch-buttons">
-          <TabsButton text={toggleButtonText} onClick={toggleWatch} />
-          <TabsButton icon={faUndoAlt} onClick={reset} />
+          <TabsButton icon={toggleButtonIcon} onClick={toggleWatch} className='icon-button'/>
+          <TabsButton icon={faUndoAlt} onClick={reset} className='icon-button'/>
+          <TabsButton icon={faCirclePlus} className='icon-button'/>
         </div>
       </div>
     );
