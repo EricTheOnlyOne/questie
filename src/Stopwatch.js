@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import TabsButton from './TabsButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUndoAlt } from '@fortawesome/free-solid-svg-icons';
 
 
 function Stopwatch() {
@@ -35,10 +37,10 @@ function Stopwatch() {
       if (isActive) {
         setAccumulatedTime(time);
         setIsActive(false);
-        setToggleButtonText('Start')
+        setToggleButtonText('Start');
       } else {
         setIsActive(true);
-        setToggleButtonText('Stop')
+        setToggleButtonText('Stop');
       }
       
     };
@@ -47,6 +49,7 @@ function Stopwatch() {
       setTime(3590000);
       setAccumulatedTime(3590000);
       setIsActive(false);
+      setToggleButtonText('Start');
     };
   
     const formatTime = (time) => {
@@ -73,7 +76,7 @@ function Stopwatch() {
         </div>
         <div className="Stopwatch-buttons">
           <TabsButton text={toggleButtonText} onClick={toggleWatch} />
-          <TabsButton text='Reset' onClick={reset} />
+          <TabsButton icon={faUndoAlt} onClick={reset} />
         </div>
       </div>
     );

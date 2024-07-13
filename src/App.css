@@ -1,3 +1,4 @@
+/* Existing styles */
 .App {
   text-align: center;
 }
@@ -31,8 +32,8 @@
 .Tabs-button, .Tabs-input {
   cursor: pointer;
   color: white;
-  padding: 10px 100px 10px 100px;
-  background-color:rgba(220, 220, 220, 0);
+  padding: 10px 100px;
+  background-color: rgba(220, 220, 220, 0);
   border-radius: 6px;
   border: none;
   font-size: 28px;
@@ -42,6 +43,14 @@
   font-style: normal;
   transition: background-color 0.2s, transform 0.2s;
   margin: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Tabs-button-icon {
+  transition: transform 0.2s;
 }
 
 .Tabs-input {
@@ -55,12 +64,12 @@
 }
 
 .Tabs-button:hover, .Tabs-input:hover {
-  background-color:rgba(220, 220, 220, 0.1);
+  background-color: rgba(220, 220, 220, 0.1);
   animation: bounce-in 0.22s forwards;
 }
 
 .Tabs-button:active, .Tabs-input:active {
-  background-color:rgba(220, 220, 220, 0.2);
+  background-color: rgba(220, 220, 220, 0.2);
 }
 
 .Tabs-button:not(:hover), .Tabs-input:not(:hover) {

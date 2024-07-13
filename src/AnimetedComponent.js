@@ -9,7 +9,7 @@ const AnimatedComponent = ({ children }) => {
             targets: containerRef.current.children,
             opacity: [0, 1],
             translateY: [50, 0],
-            duration: 3000,
+            duration: 2000,
             delay: anime.stagger(100, { start: 200 }), // Delay each child element
             easing: 'easeOutExpo',
         });
