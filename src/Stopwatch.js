@@ -6,7 +6,7 @@ import { faUndoAlt, faCirclePlay, faCirclePause, faCirclePlus } from '@fortaweso
 
 function Stopwatch() {
     const [toggleButtonIcon, setToggleButtonIcon] = useState(faCirclePlay);
-    const [time, setTime] = useState(3590000);
+    const [time, setTime] = useState(0);
     const [isActive, setIsActive] = useState(false);
     const [accumulatedTime, setAccumulatedTime] = useState(0);
     const startTime = useRef(null);
@@ -45,24 +45,27 @@ function Stopwatch() {
     };
   
     const reset = () => {
-      setTime(3590000);
-      setAccumulatedTime(3590000);
+      setTime(0);
+      setAccumulatedTime(0);
       setIsActive(false);
       setToggleButtonIcon(faCirclePlay);
     };
   
     const formatTime = (time) => {
-      const milliseconds = (time % 1000) / 10;
+      const milliseconds = Math.floor((time % 1000) / 10);
       const totalSeconds = Math.floor(time / 1000);
       const hours = Math.floor(totalSeconds / 3600);
       const minutes = Math.floor((totalSeconds % 3600) / 60);
       const seconds = totalSeconds % 60;
-  
+    
+      // Format milliseconds to always have two digits
+      const formattedMilliseconds = milliseconds.toString().padStart(2, '0');
+    
       return hours > 0
-      ? `${hours}h ${minutes}m ${seconds}.${milliseconds.toFixed(0)}s`
-      : minutes > 0
-        ? `${minutes}m ${seconds}.${milliseconds.toFixed(0)}s`
-        : `${seconds}.${milliseconds.toFixed(0)}s`;
+        ? `${hours}h ${minutes}m ${seconds}.${formattedMilliseconds}s`
+        : minutes > 0
+          ? `${minutes}m ${seconds}.${formattedMilliseconds}s`
+          : `${seconds}.${formattedMilliseconds}s`;
     };
   
     return (
