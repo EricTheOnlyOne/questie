@@ -1,4 +1,10 @@
-/* Existing styles */
+html, body, #root, .App, .App-header {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
 .App {
   text-align: center;
 }
@@ -16,7 +22,6 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -114,6 +119,7 @@
   margin-bottom: 20px;
   display: flex;
   align-items: center;
+  gap: 40px;
 }
 
 .Stopwatch-buttons {
@@ -161,4 +167,60 @@
  display: flex;
  flex-direction: column;
  gap: 10px;
+}
+
+/* Add this CSS to your App.css */
+.Activities-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 90vh;
+  overflow: auto;
+}
+
+.Activity-item {
+  background-color: #333;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: left;
+  font-size: .6em;
+}
+
+.Activity-item p {
+  margin: 5px 0;
+}
+
+.Activity-item p strong {
+  color: #61dafb;
+}
+
+.Activity-item .height-fit-content {
+  margin-top: 10px;
+}
+
+.small-font {
+  font-size: .8em;
+  padding: 8px 60px;
+}
+
+.Activity-item.editing {
+  background-color: #444; /* Different background color for editing state */
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the scrollbar thumb */
+  border-radius: 4px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color when hovered */
+}
+
+::-webkit-scrollbar-track {
+  background: #282c34; /* Color of the scrollbar track */
 }
