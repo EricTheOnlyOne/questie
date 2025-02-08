@@ -164,6 +164,7 @@ function Stopwatch() {
 
   return (
     <div className='Stopwatch'>
+          <h1>test2</h1>
       <div className='Stopwatch-input-and-controls'>
         <div className="Input-row">
           <input type="text" className="Tabs-input" placeholder="Reference" value={reference} onChange={(e) => setReference(e.target.value)} />
