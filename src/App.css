@@ -79,7 +79,7 @@ html, body, #root, .App, .App-header {
 .Tabs-button:hover, .Tabs-input:hover {
   background-color: rgba(220, 220, 220, 0.1);
   animation: bounce-in 0.22s forwards;
-  color: #6c5ce7;
+  color: #FC4A1F;
 }
 
 .Tabs-button:active, .Tabs-input:active {
@@ -191,7 +191,7 @@ html, body, #root, .App, .App-header {
 }
 
 .Activity-item p strong {
-  color: #61dafb;
+  color: #ffffff;
 }
 
 .Activity-item .height-fit-content {
@@ -203,8 +203,18 @@ html, body, #root, .App, .App-header {
   padding: 8px 60px;
 }
 
+.mini-font {
+  font-size: .8em;
+  padding: 8px 10px;
+}
+
 .Activity-item.editing {
   background-color: #444; /* Different background color for editing state */
+}
+
+.activity-button-container {
+  display: flex;
+  justify-content: space-around;
 }
 
 /* Custom Scrollbar */
