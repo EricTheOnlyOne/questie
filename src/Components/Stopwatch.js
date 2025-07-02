@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import '../App.css';
 import TabsButton from './TabsButton';
 import ActivitiesList from './ActivitiesList';
+import ActivityChart from './ActivityChart';
 import { faUndoAlt, faCirclePlay, faCirclePause } from '@fortawesome/free-solid-svg-icons';
+import {calculateTime, formatTime, parseTime, combineTimes} from '../utils/timeUtils'
 
 function Stopwatch() {
   const [toggleButtonIcon, setToggleButtonIcon] = useState(faCirclePlay);
@@ -91,13 +93,20 @@ function Stopwatch() {
     setToggleButtonIcon(faCirclePlay);
   };
 
+  const deleteActivity = (indexToRemove) => {
+    setActivities((activities) => activities.filter((_, index) => index !== indexToRemove));
+  };
+
   const saveActivity = () => {
-    const formattedTime = formatTime(time);
+    if (!reference && !activity) {
+      return;
+    }
+    const formattedTime = formatTime(calculateTime(time));
     const newActivity = {
       reference,
       activity,
       time: formattedTime,
-      createdDate: new Date().toLocaleDateString(),
+      createdDate: new Date().toLocaleString(),
       isEditing: false,
     };
 
@@ -120,48 +129,11 @@ function Stopwatch() {
     reset();
   };
 
-  const formatTime = (time) => {
-    const milliseconds = Math.floor((time % 1000) / 10);
-    const totalSeconds = Math.floor(time / 1000);
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
-
-    const formattedMilliseconds = milliseconds.toString().padStart(2, '0');
-    const formattedMinutes = minutes.toString().padStart(2, '0');
-    const formattedSeconds = seconds.toString().padStart(2, '0');
-
-    return hours > 0
-      ? `${hours}h ${formattedMinutes}m ${formattedSeconds}.${formattedMilliseconds}s`
-      : minutes > 0
-        ? `${formattedMinutes}m ${formattedSeconds}.${formattedMilliseconds}s`
-        : `${formattedSeconds}.${formattedMilliseconds}s`;
-  };
-
-  const parseTime = (formattedTime) => {
-    const timeParts = formattedTime.split(/[hms]/).map(part => part.trim()).filter(part => part !== '');
-    let totalMilliseconds = 0;
-
-    if (timeParts.length === 3) {
-      const [hours, minutes, seconds] = timeParts;
-      totalMilliseconds = (parseInt(hours, 10) * 3600 + parseInt(minutes, 10) * 60 + parseFloat(seconds)) * 1000;
-    } else if (timeParts.length === 2) {
-      const [minutes, seconds] = timeParts;
-      totalMilliseconds = (parseInt(minutes, 10) * 60 + parseFloat(seconds)) * 1000;
-    } else if (timeParts.length === 1) {
-      const [seconds] = timeParts;
-      totalMilliseconds = parseFloat(seconds) * 1000;
-    }
-
-    return totalMilliseconds;
-  };
-
-  const combineTimes = (oldTime, newTime) => {
-    const oldMilliseconds = parseTime(oldTime);
-    const newMilliseconds = parseTime(newTime);
-    const totalMilliseconds = oldMilliseconds + newMilliseconds;
-    return formatTime(totalMilliseconds);
-  };
+  const activityData = [
+    { name: 'Coding', hours: 4 },
+    { name: 'Meeting', hours: 2 },
+    { name: 'Exercise', hours: 1 },
+  ];
 
   return (
     <div className='Stopwatch'>
@@ -176,10 +148,10 @@ function Stopwatch() {
         </div>
       </div>
       <div className='time-save-container'>
-        <h1 className={shouldGlow ? 'glow' : ''} style={{ margin: 0 }}>{formatTime(time)}</h1>
+        <h1 className={shouldGlow ? 'glow' : ''} style={{ margin: 0 }}>{formatTime(calculateTime(time))}</h1>
         <TabsButton text='Save' onClick={saveActivity} className='height-fit-content' />
       </div>
-      <ActivitiesList activities={activities} onReassign={reassignActivity}></ActivitiesList>
+      <ActivitiesList activities={activities} onReassign={reassignActivity} onDelete={deleteActivity}></ActivitiesList>
     </div>
   );
 }
