@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import '../App.css';
 import TabsButton from './TabsButton';
 import ActivitiesList from './ActivitiesList';
-import ActivityChart from './ActivityChart';
 import { faUndoAlt, faCirclePlay, faCirclePause } from '@fortawesome/free-solid-svg-icons';
 import {calculateTime, formatTime, parseTime, combineTimes} from '../utils/timeUtils'
 

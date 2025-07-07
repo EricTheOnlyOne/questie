@@ -5,8 +5,79 @@ html, body, #root, .App, .App-header {
   overflow: hidden;
 }
 
+.header {
+  border-bottom: .5px solid darkgrey;
+  box-sizing: border-box;
+  padding: .5rem;
+}
+
+button.minimal {
+    border: none;
+    color: white;
+    margin: 0px;
+    border-radius: 4px;
+    font-family: ArialRounded;
+    font-size: 16px;
+    padding: 2px 12px;
+    height: 28px;
+    cursor: pointer;
+    background: none;
+    box-shadow: none;
+    font-weight: 300;
+    width: 6.5rem;
+}
+
+button.minimal:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+div.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.animation-wrapper {
+  height: 100%;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.Control-Wrapper {
+  margin-top: 5rem;
+  padding: 1rem 2rem;
+  background: #4c515a47;
+  display: flex;
+  flex-direction: column;
+}
+
+.times-wrapper{
+  display: flex;
+  margin: auto;
+  justify-content: space-evenly;
+  width: 90%;
+}
+
+button.active {
+  border-radius: 5px;
+  background-color: #3d4149;;
+}
+
 .App {
   text-align: center;
+  background-color: #282c34;
+  display: flex;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.col-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {
@@ -38,7 +109,7 @@ html, body, #root, .App, .App-header {
   cursor: pointer;
   color: white;
   padding: 10px 100px;
-  background-color: rgba(220, 220, 220, 0);
+  background-color: #fc4a1f;
   border-radius: 6px;
   border: none;
   font-size: 28px;

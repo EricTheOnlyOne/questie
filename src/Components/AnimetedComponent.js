@@ -16,7 +16,7 @@ const AnimatedComponent = ({ children }) => {
     }, []);
 
     return (
-        <div ref={containerRef}>
+        <div class="animation-wrapper" ref={containerRef}>
             {children}
         </div>
     );
