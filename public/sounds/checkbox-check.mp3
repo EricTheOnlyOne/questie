@@ -1,0 +1,2 @@
+// This would be a satisfying checkbox check sound - a crisp "tick" sound
+// For now, we'll use Web Audio API to generate sounds or you can add actual sound files

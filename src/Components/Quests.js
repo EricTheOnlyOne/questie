@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import soundEffects from "../utils/soundEffects";
 
 export default function Quests() {
   const [quests, setQuests] = useState([]);
@@ -12,7 +13,7 @@ export default function Quests() {
   useEffect(() => {
     const savedQuests = localStorage.getItem('wow-quests');
     const savedCompleted = localStorage.getItem('wow-completed-quests');
-    
+
     if (savedQuests) {
       setQuests(JSON.parse(savedQuests));
     }
@@ -32,6 +33,7 @@ export default function Quests() {
 
   const handleAddQuest = () => {
     if (newQuest.trim() === "") return;
+    soundEffects.playButtonClick();
     const newQuestObj = {
       id: Date.now(),
       text: newQuest,
@@ -49,7 +51,7 @@ export default function Quests() {
       setQuests(updatedQuests);
       return;
     }
-    
+
     const updatedQuests = [...quests];
     updatedQuests[index].text = value;
     setQuests(updatedQuests);
@@ -85,25 +87,45 @@ export default function Quests() {
 
   const toggleQuestComplete = (index) => {
     const updatedQuests = [...quests];
+    const wasCompleted = updatedQuests[index].completed;
     updatedQuests[index].completed = !updatedQuests[index].completed;
+    
+    // Play appropriate sound
+    if (updatedQuests[index].completed) {
+      soundEffects.playCheckboxCheck();
+    } else {
+      soundEffects.playCheckboxUncheck();
+    }
+    
     setQuests(updatedQuests);
     checkQuestCompletion(index);
   };
 
   const toggleSubtaskComplete = (questIndex, subtaskIndex) => {
     const updatedQuests = [...quests];
-    updatedQuests[questIndex].subtasks[subtaskIndex].completed = 
-      !updatedQuests[questIndex].subtasks[subtaskIndex].completed;
+    const wasCompleted = updatedQuests[questIndex].subtasks[subtaskIndex].completed;
+    updatedQuests[questIndex].subtasks[subtaskIndex].completed = !wasCompleted;
+    
+    // Play appropriate sound
+    if (updatedQuests[questIndex].subtasks[subtaskIndex].completed) {
+      soundEffects.playCheckboxCheck();
+    } else {
+      soundEffects.playCheckboxUncheck();
+    }
+    
     setQuests(updatedQuests);
     checkQuestCompletion(questIndex);
   };
 
   const checkQuestCompletion = (questIndex) => {
     const quest = quests[questIndex];
-    const allSubtasksComplete = quest.subtasks.length === 0 || 
+    const allSubtasksComplete = quest.subtasks.length === 0 ||
       quest.subtasks.every(subtask => subtask.completed);
-    
+
     if (quest.completed && allSubtasksComplete) {
+      // Play quest completion sound
+      soundEffects.playQuestComplete();
+      
       // Move to completed quests
       setTimeout(() => {
         const questToComplete = { ...quest, completedAt: new Date().toISOString() };
@@ -114,13 +136,32 @@ export default function Quests() {
   };
 
   const restoreQuest = (completedIndex) => {
+    soundEffects.playButtonClick();
     const questToRestore = { ...completedQuests[completedIndex] };
     delete questToRestore.completedAt;
     questToRestore.completed = false;
     // Keep subtask completion states when restoring
-    
+
     setQuests(prev => [...prev, questToRestore]);
     setCompletedQuests(prev => prev.filter((_, i) => i !== completedIndex));
+  };
+
+  // Handle typing sounds for text inputs
+  const handleTextInput = (e) => {
+    if (e.key && e.key.length === 1) { // Only for actual character input
+      soundEffects.playTypingSound();
+    }
+  };
+
+  // Handle button hover sounds
+  const handleButtonHover = () => {
+    soundEffects.playButtonHover();
+  };
+
+  // Handle show/hide completed quests
+  const handleToggleCompleted = () => {
+    soundEffects.playButtonClick();
+    setShowCompleted(!showCompleted);
   };
 
   const handleKeyDown = (e, questIndex, subtaskIndex = null) => {
@@ -155,7 +196,7 @@ export default function Quests() {
 
   const handleDrop = (e, dropIndex) => {
     e.preventDefault();
-    
+
     if (draggedIndex === null || draggedIndex === dropIndex) {
       setDraggedIndex(null);
       setDragOverIndex(null);
@@ -163,15 +204,12 @@ export default function Quests() {
     }
 
     const updatedQuests = [...quests];
-    const draggedQuest = updatedQuests[draggedIndex];
-    
-    // Remove dragged quest from its original position
-    updatedQuests.splice(draggedIndex, 1);
-    
-    // Insert at new position
-    const insertIndex = draggedIndex < dropIndex ? dropIndex - 1 : dropIndex;
-    updatedQuests.splice(insertIndex, 0, draggedQuest);
-    
+
+    // Simple approach: swap the items directly
+    const temp = updatedQuests[draggedIndex];
+    updatedQuests[draggedIndex] = updatedQuests[dropIndex];
+    updatedQuests[dropIndex] = temp;
+
     setQuests(updatedQuests);
     setDraggedIndex(null);
     setDragOverIndex(null);
@@ -186,16 +224,15 @@ export default function Quests() {
     <div className="col-container">
       <div className="header">Quest Log</div>
       <div className="quest-container">
-        
+
         {/* Active Quests */}
         <div className="quest-section">
           <div className="quest-list">
             {quests.map((quest, i) => (
-              <div 
-                key={quest.id} 
-                className={`quest-item ${quest.completed ? 'quest-completed' : ''} ${
-                  draggedIndex === i ? 'quest-dragging' : ''
-                } ${dragOverIndex === i ? 'quest-drag-over' : ''}`}
+              <div
+                key={quest.id}
+                className={`quest-item ${quest.completed ? 'quest-completed' : ''} ${draggedIndex === i ? 'quest-dragging' : ''
+                  } ${dragOverIndex === i ? 'quest-drag-over' : ''}`}
                 draggable={true}
                 onDragStart={(e) => handleDragStart(e, i)}
                 onDragOver={(e) => handleDragOver(e, i)}
@@ -215,12 +252,15 @@ export default function Quests() {
                     className="quest-text"
                     value={quest.text}
                     onChange={(e) => handleQuestChange(i, e.target.value)}
-                    onKeyDown={(e) => handleKeyDown(e, i)}
+                    onKeyDown={(e) => {
+                      handleTextInput(e);
+                      handleKeyDown(e, i);
+                    }}
                     placeholder="Enter your quest... (Tab to add subtask)"
                     rows="1"
                   />
                 </div>
-                
+
                 {/* Subtasks */}
                 {quest.subtasks.map((subtask, j) => (
                   <div key={subtask.id} className="subtask-item">
@@ -234,7 +274,10 @@ export default function Quests() {
                       className="subtask-text"
                       value={subtask.text}
                       onChange={(e) => handleSubtaskChange(i, j, e.target.value)}
-                      onKeyDown={(e) => handleSubtaskKeyDown(e, i, j)}
+                      onKeyDown={(e) => {
+                        handleTextInput(e);
+                        handleSubtaskKeyDown(e, i, j);
+                      }}
                       placeholder="Subtask... (Tab to add another)"
                       rows="1"
                     />
@@ -252,9 +295,16 @@ export default function Quests() {
               placeholder="Accept new quest..."
               value={newQuest}
               onChange={(e) => setNewQuest(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleAddQuest()}
+              onKeyDown={(e) => {
+                handleTextInput(e);
+                if (e.key === "Enter") handleAddQuest();
+              }}
             />
-            <button onClick={handleAddQuest} className="add-quest-btn">
+            <button 
+              onClick={handleAddQuest} 
+              className="add-quest-btn"
+              onMouseEnter={handleButtonHover}
+            >
               Accept Quest
             </button>
           </div>
@@ -262,13 +312,14 @@ export default function Quests() {
 
         {/* Completed Quests Toggle */}
         <div className="completed-section">
-          <button 
-            className="toggle-completed-btn"
-            onClick={() => setShowCompleted(!showCompleted)}
+          <button
+            className="pomodoro-tab"
+            onClick={handleToggleCompleted}
+            onMouseEnter={handleButtonHover}
           >
             {showCompleted ? 'Hide' : 'Show'} Completed Quests ({completedQuests.length})
           </button>
-          
+
           {showCompleted && (
             <div className="completed-quest-list">
               {completedQuests.map((quest, i) => (
@@ -281,9 +332,10 @@ export default function Quests() {
                       </div>
                     )}
                   </div>
-                  <button 
+                  <button
                     className="restore-quest-btn"
                     onClick={() => restoreQuest(i)}
+                    onMouseEnter={handleButtonHover}
                   >
                     Restore Quest
                   </button>

@@ -1,4 +1,8 @@
-html, body, #root, .App, .App-header {
+html,
+body,
+#root,
+.App,
+.App-header {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -8,73 +12,33 @@ html, body, #root, .App, .App-header {
 .header {
   box-sizing: border-box;
   padding: 1rem;
-  margin: 0 1rem 1.5rem 1rem;
   font-size: 28px;
   font-weight: 600;
   text-align: center;
-  background: linear-gradient(135deg, rgba(139, 69, 19, 0.2) 0%, rgba(218, 165, 32, 0.1) 100%);
-  border-radius: 8px;
+  border-radius: 12px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
   position: relative;
-  border: 3px solid;
-  border-image: linear-gradient(
-    45deg,
-    #8B4513,
-    #DAA520,
-    #CD853F,
-    #B8860B,
-    #DAA520,
-    #8B4513,
-    #A0522D,
-    #DAA520
-  ) 1;
-  animation: borderWave 4s ease-in-out infinite;
+  border: 3px solid transparent;
+  background-clip: padding-box;
 }
 
 @keyframes borderWave {
-  0%, 100% {
-    border-image: linear-gradient(
-      45deg,
-      #8B4513,
-      #DAA520,
-      #CD853F,
-      #B8860B,
-      #DAA520,
-      #8B4513
-    ) 1;
+
+  0%,
+  100% {
+    background-position: 0% 50%;
   }
+
   25% {
-    border-image: linear-gradient(
-      135deg,
-      #DAA520,
-      #CD853F,
-      #B8860B,
-      #8B4513,
-      #A0522D,
-      #DAA520
-    ) 1;
+    background-position: 100% 0%;
   }
+
   50% {
-    border-image: linear-gradient(
-      225deg,
-      #CD853F,
-      #B8860B,
-      #8B4513,
-      #DAA520,
-      #A0522D,
-      #CD853F
-    ) 1;
+    background-position: 100% 100%;
   }
+
   75% {
-    border-image: linear-gradient(
-      315deg,
-      #B8860B,
-      #8B4513,
-      #DAA520,
-      #CD853F,
-      #A0522D,
-      #B8860B
-    ) 1;
+    background-position: 0% 100%;
   }
 }
 
@@ -100,19 +64,19 @@ li {
 
 
 button.minimal {
-    border: none;
-    color: white;
-    margin: 0px;
-    border-radius: 4px;
-    font-family: ArialRounded;
-    font-size: 16px;
-    padding: 2px 12px;
-    height: 28px;
-    cursor: pointer;
-    background: none;
-    box-shadow: none;
-    font-weight: 300;
-    width: 6.5rem;
+  border: none;
+  color: white;
+  margin: 0px;
+  border-radius: 4px;
+  font-family: ArialRounded;
+  font-size: 16px;
+  padding: 2px 12px;
+  height: 28px;
+  cursor: pointer;
+  background: none;
+  box-shadow: none;
+  font-weight: 300;
+  width: 6.5rem;
 }
 
 button.minimal:active {
@@ -135,17 +99,17 @@ div.wrapper {
 }
 
 .Control-Wrapper {
-  margin-top: 2rem;
   padding: 2rem;
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
   display: flex;
   flex-direction: column;
   border-radius: 12px;
-  border: 2px solid #8B4513;
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  border: 2px solid #fc4a1f;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(252, 74, 31, 0.3);
+  max-width: 80%;
 }
 
-.times-wrapper{
+.times-wrapper {
   display: flex;
   margin: auto;
   justify-content: space-evenly;
@@ -154,7 +118,8 @@ div.wrapper {
 
 button.active {
   border-radius: 5px;
-  background-color: #3d4149;;
+  background-color: #3d4149;
+  ;
 }
 
 .App {
@@ -190,12 +155,12 @@ button.active {
     gap: 1rem;
     padding: 0.5rem;
   }
-  
+
   .pomodoro-container {
     min-width: unset;
     width: 100%;
   }
-  
+
   .col-container {
     width: 100%;
   }
@@ -207,20 +172,20 @@ button.active {
     overflow-x: hidden;
     position: relative;
   }
-  
+
   .mobile-container {
     display: flex;
     width: 200%;
     transition: transform 0.3s ease;
   }
-  
+
   .mobile-page {
     width: 50%;
     min-height: 100vh;
     padding: 1rem;
     box-sizing: border-box;
   }
-  
+
   .mobile-nav {
     position: fixed;
     bottom: 20px;
@@ -232,12 +197,13 @@ button.active {
     background: rgba(0, 0, 0, 0.8);
     padding: 10px;
     border-radius: 25px;
-    border: 1px solid #8B4513;
+    border: 1px solid #fc4a1f;
+    box-shadow: 0 0 15px rgba(252, 74, 31, 0.3);
   }
-  
+
   .mobile-nav-btn {
     background: linear-gradient(135deg, #4c515a 0%, #3d4149 100%);
-    border: 1px solid #8B4513;
+    border: 1px solid #fc4a1f;
     border-radius: 20px;
     padding: 8px 16px;
     color: white;
@@ -245,12 +211,12 @@ button.active {
     cursor: pointer;
     transition: all 0.3s ease;
   }
-  
+
   .mobile-nav-btn.active {
     background: linear-gradient(135deg, #fc4a1f 0%, #e63946 100%);
     box-shadow: 0 0 10px rgba(252, 74, 31, 0.4);
   }
-  
+
   .mobile-nav-btn:hover {
     transform: translateY(-2px);
   }
@@ -281,12 +247,13 @@ button.active {
   color: #61dafb;
 }
 
-.Tabs-button, .Tabs-input {
+.Tabs-button,
+.Tabs-input {
   cursor: pointer;
-  color: #DAA520;
+  color: white;
   padding: 10px 100px;
-  background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
-  border: 1px solid #DAA520;
+  background: linear-gradient(135deg, #fc4a1f 0%, #e63946 100%);
+  border: 1px solid #fc4a1f;
   border-radius: 6px;
   font-size: 28px;
   font-family: "Montserrat", sans-serif;
@@ -300,6 +267,7 @@ button.active {
   align-items: center;
   justify-content: center;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  max-width: 270px;
 }
 
 .Tabs-button-icon {
@@ -320,23 +288,27 @@ button.active {
   color: transparent;
 }
 
-.Tabs-button, .Tabs-input {
+.Tabs-button,
+.Tabs-input {
   transition: color 0.22s, background-color 0.22s, transform 0.22s;
 }
 
-.Tabs-button:hover, .Tabs-input:hover {
-  background: linear-gradient(135deg, #A0522D 0%, #8B4513 100%);
-  box-shadow: 0 0 10px rgba(218, 165, 32, 0.4);
+.Tabs-button:hover,
+.Tabs-input:hover {
+  background: linear-gradient(135deg, #e63946 0%, #fc4a1f 100%);
+  box-shadow: 0 0 15px rgba(252, 74, 31, 0.6);
   transform: translateY(-1px);
   animation: bounce-in 0.22s forwards;
 }
 
-.Tabs-button:active, .Tabs-input:active {
+.Tabs-button:active,
+.Tabs-input:active {
   transform: translateY(0);
-  box-shadow: 0 0 5px rgba(218, 165, 32, 0.3);
+  box-shadow: 0 0 8px rgba(252, 74, 31, 0.4);
 }
 
-.Tabs-button:not(:hover), .Tabs-input:not(:hover) {
+.Tabs-button:not(:hover),
+.Tabs-input:not(:hover) {
   animation: bounce-out 0.22s forwards;
 }
 
@@ -345,12 +317,16 @@ button.active {
 }
 
 @keyframes bounce-in {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
   }
+
   80% {
     transform: scale(1.22);
   }
+
   100% {
     transform: scale(1.2);
   }
@@ -360,6 +336,7 @@ button.active {
   0% {
     transform: scale(1.2);
   }
+
   100% {
     transform: scale(1);
   }
@@ -395,11 +372,13 @@ button.active {
 .icon-button {
   padding: 5px;
 }
+
 /* Add this CSS to your App.css */
 @keyframes glow {
   0% {
     text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ccc, 0 0 20px #ccc, 0 0 25px #ccc, 0 0 30px #ccc, 0 0 35px #ccc;
   }
+
   100% {
     text-shadow: none;
   }
@@ -414,9 +393,9 @@ button.active {
 }
 
 .time-save-container {
- display: flex;
- flex-direction: column;
- gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 /* Add this CSS to your App.css */
@@ -459,7 +438,8 @@ button.active {
 }
 
 .Activity-item.editing {
-  background-color: #444; /* Different background color for editing state */
+  background-color: #444;
+  /* Different background color for editing state */
 }
 
 .activity-button-container {
@@ -468,31 +448,36 @@ button.active {
 }
 
 .source {
-    opacity: 1;
-    transform: translateY(0px);
-    position: absolute;
-    color: white;
-    left: 2px;
-    bottom: 0px;
-    margin: .2rem;
+  opacity: 1;
+  transform: translateY(0px);
+  position: absolute;
+  color: white;
+  left: 2px;
+  bottom: 0px;
+  margin: .2rem;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px; /* Width of the scrollbar */
+  width: 8px;
+  /* Width of the scrollbar */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888; /* Color of the scrollbar thumb */
-  border-radius: 4px; /* Rounded corners */
+  background: #888;
+  /* Color of the scrollbar thumb */
+  border-radius: 4px;
+  /* Rounded corners */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Color when hovered */
+  background: #555;
+  /* Color when hovered */
 }
 
 ::-webkit-scrollbar-track {
-  background: #282c34; /* Color of the scrollbar track */
+  background: #282c34;
+  /* Color of the scrollbar track */
 }
 
 /* WoW Quest Log Styles */
@@ -503,9 +488,9 @@ button.active {
   max-height: 82vh;
   overflow-y: auto;
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-  border: 2px solid #8B4513;
+  border: 2px solid #fc4a1f;
   border-radius: 8px;
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(252, 74, 31, 0.3);
 }
 
 .completed-section {
@@ -528,12 +513,12 @@ button.active {
 }
 
 .quest-list::-webkit-scrollbar-thumb {
-  background: #8B4513;
+  background: #fc4a1f;
   border-radius: 3px;
 }
 
 .quest-list::-webkit-scrollbar-thumb:hover {
-  background: #DAA520;
+  background: #e63946;
 }
 
 .quest-list::-webkit-scrollbar-track {
@@ -543,7 +528,7 @@ button.active {
 
 .quest-item {
   background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
-  border: 1px solid #8B4513;
+  border: 1px solid #fc4a1f;
   border-radius: 6px;
   padding: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -551,33 +536,33 @@ button.active {
 }
 
 .quest-item:hover {
-  border-color: #DAA520;
-  box-shadow: 0 0 15px rgba(218, 165, 32, 0.3);
+  border-color: #fc4a1f;
+  box-shadow: 0 0 15px rgba(252, 74, 31, 0.5);
 }
 
 .quest-completed {
   opacity: 0.7;
   background: linear-gradient(135deg, #1a3a1a 0%, #0f2f0f 100%);
-  border-color: #228B22;
+  border-color: #32CD32;
 }
 
 /* Drag and Drop Styles */
 .quest-dragging {
   opacity: 0.5;
   transform: rotate(2deg);
-  box-shadow: 0 8px 25px rgba(218, 165, 32, 0.4);
-  border-color: #DAA520;
+  box-shadow: 0 8px 25px rgba(252, 74, 31, 0.6);
+  border-color: #fc4a1f;
   z-index: 1000;
 }
 
 .quest-drag-over {
-  border-color: #DAA520;
-  box-shadow: 0 0 20px rgba(218, 165, 32, 0.5);
+  border-color: #fc4a1f;
+  box-shadow: 0 0 20px rgba(252, 74, 31, 0.7);
   transform: translateY(-2px);
 }
 
 .drag-handle {
-  color: #8B7355;
+  color: #ff6b35;
   font-size: 16px;
   cursor: grab;
   padding: 0.25rem;
@@ -586,7 +571,7 @@ button.active {
 }
 
 .drag-handle:hover {
-  color: #DAA520;
+  color: #fc4a1f;
 }
 
 .quest-item:active .drag-handle {
@@ -595,24 +580,25 @@ button.active {
 
 .quest-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.5rem;
   margin-bottom: 0.5rem;
 }
 
-.quest-checkbox, .subtask-checkbox {
-  margin-top: 0.25rem;
+.quest-checkbox,
+.subtask-checkbox {
   width: 18px;
   height: 18px;
-  accent-color: #DAA520;
+  accent-color: #fc4a1f;
   cursor: pointer;
 }
 
-.quest-text, .subtask-text {
+.quest-text,
+.subtask-text {
   flex: 1;
   background: transparent;
   border: none;
-  color: #DAA520;
+  color: #fc4a1f;
   font-family: 'Cinzel', serif;
   font-size: 1rem;
   font-weight: 500;
@@ -623,14 +609,17 @@ button.active {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
-.quest-text::placeholder, .subtask-text::placeholder {
-  color: #8B7355;
+.quest-text::placeholder,
+.subtask-text::placeholder {
+  color: #ff6b35;
   font-style: italic;
 }
 
-.quest-text:focus, .subtask-text:focus {
-  background: rgba(218, 165, 32, 0.1);
+.quest-text:focus,
+.subtask-text:focus {
+  background: rgba(252, 74, 31, 0.1);
   border-radius: 4px;
+  box-shadow: 0 0 8px rgba(252, 74, 31, 0.3);
 }
 
 .subtask-item {
@@ -640,50 +629,54 @@ button.active {
   margin-left: 1.5rem;
   margin-top: 0.5rem;
   padding-left: 1rem;
-  border-left: 2px solid #8B4513;
+  border-left: 2px solid #fc4a1f;
 }
 
 .subtask-text {
   font-size: 0.9rem;
-  color: #CD853F;
+  color: #ff6b35;
 }
 
 .add-quest-section {
   display: flex;
   gap: 0.5rem;
   padding: 1.5rem 0;
-  border-top: 2px solid #8B4513;
-  border-bottom: 2px solid #8B4513;
+  border-top: 2px solid #fc4a1f;
+  border-bottom: 2px solid #fc4a1f;
+
+  @media (max-width: 960px) {
+    flex-direction: column;
+  }
 }
 
 .new-quest-input {
   flex: 1;
   background: rgba(0, 0, 0, 0.5);
-  border: 1px solid #8B4513;
+  border: 1px solid #fc4a1f;
   border-radius: 4px;
   padding: 0.75rem;
-  color: #DAA520;
+  color: #fc4a1f;
   font-family: 'Cinzel', serif;
   font-size: 1rem;
   outline: none;
 }
 
 .new-quest-input::placeholder {
-  color: #8B7355;
+  color: #ff6b35;
   font-style: italic;
 }
 
 .new-quest-input:focus {
-  border-color: #DAA520;
-  box-shadow: 0 0 8px rgba(218, 165, 32, 0.3);
+  border-color: #fc4a1f;
+  box-shadow: 0 0 12px rgba(252, 74, 31, 0.5);
 }
 
 .add-quest-btn {
-  background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
-  border: 1px solid #DAA520;
+  background: linear-gradient(135deg, #fc4a1f 0%, #e63946 100%);
+  border: 1px solid #fc4a1f;
   border-radius: 4px;
   padding: 0.75rem 1.5rem;
-  color: #DAA520;
+  color: white;
   font-family: 'Cinzel', serif;
   font-weight: 600;
   cursor: pointer;
@@ -692,8 +685,8 @@ button.active {
 }
 
 .add-quest-btn:hover {
-  background: linear-gradient(135deg, #A0522D 0%, #8B4513 100%);
-  box-shadow: 0 0 10px rgba(218, 165, 32, 0.4);
+  background: linear-gradient(135deg, #e63946 0%, #fc4a1f 100%);
+  box-shadow: 0 0 15px rgba(252, 74, 31, 0.6);
   transform: translateY(-1px);
 }
 
@@ -707,10 +700,10 @@ button.active {
 
 .toggle-completed-btn {
   background: linear-gradient(135deg, #4A4A4A 0%, #2A2A2A 100%);
-  border: 1px solid #8B4513;
+  border: 1px solid #fc4a1f;
   border-radius: 4px;
   padding: 0.5rem 1rem;
-  color: #DAA520;
+  color: #fc4a1f;
   font-family: 'Cinzel', serif;
   font-weight: 500;
   cursor: pointer;
@@ -719,8 +712,10 @@ button.active {
 }
 
 .toggle-completed-btn:hover {
-  border-color: #DAA520;
-  box-shadow: 0 0 8px rgba(218, 165, 32, 0.3);
+  border-color: #fc4a1f;
+  box-shadow: 0 0 12px rgba(252, 74, 31, 0.5);
+  background: linear-gradient(135deg, #fc4a1f 0%, #e63946 100%);
+  color: white;
 }
 
 .completed-quest-list {
@@ -786,13 +781,13 @@ button.active {
 
 /* Pomodoro Timer Styles */
 .pomodoro-tab {
-  border: 1px solid #8B4513;
-  color: #DAA520;
+  border: 1px solid #fc4a1f;
+  color: white;
   margin: 0px;
   border-radius: 4px;
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
-  padding: 8px 16px;
+  padding: 8px;
   height: auto;
   cursor: pointer;
   background: linear-gradient(135deg, #4A4A4A 0%, #2A2A2A 100%);
@@ -803,16 +798,16 @@ button.active {
 }
 
 .pomodoro-tab:hover {
-  border-color: #DAA520;
-  box-shadow: 0 0 8px rgba(218, 165, 32, 0.3);
+  border-color: #fc4a1f;
+  box-shadow: 0 0 12px rgba(252, 74, 31, 0.5);
   transform: translateY(-1px);
 }
 
 .pomodoro-tab.active {
-  background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
-  border-color: #DAA520;
-  color: #DAA520;
-  box-shadow: 0 0 15px rgba(218, 165, 32, 0.4);
+  background: linear-gradient(135deg, #fc4a1f 0%, #e63946 100%);
+  border-color: #fc4a1f;
+  color: white;
+  box-shadow: 0 0 20px rgba(252, 74, 31, 0.6);
 }
 
 .pomodoro-tab:active {
@@ -824,44 +819,33 @@ button.active {
   font-size: 4rem;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
-  color: #DAA520;
+  color: #fc4a1f;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
   margin: 2rem 0;
   padding: 1rem;
   background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 100%);
   border-radius: 12px;
-  border: 2px solid #8B4513;
-  min-width: 300px;
+  border: 2px solid #fc4a1f;
+  min-width: 230px;
   text-align: center;
   transition: all 0.3s ease;
-  box-shadow: 0 0 15px rgba(218, 165, 32, 0.2);
+  box-shadow: 0 0 20px rgba(252, 74, 31, 0.4);
 }
 
 .timer-display.focus-timer {
-  color: #DAA520;
-  border-color: #8B4513;
-  box-shadow: 0 0 20px rgba(218, 165, 32, 0.3);
+  color: #fc4a1f;
+  border-color: #fc4a1f;
+  box-shadow: 0 0 25px rgba(252, 74, 31, 0.5);
 }
 
 .timer-display.short-break-timer {
-  color: #CD853F;
-  border-color: #8B4513;
-  box-shadow: 0 0 20px rgba(205, 133, 63, 0.3);
+  color: #ff6b35;
+  border-color: #ff6b35;
+  box-shadow: 0 0 25px rgba(255, 107, 53, 0.5);
 }
 
 .timer-display.long-break-timer {
-  color: #B8860B;
-  border-color: #8B4513;
-  box-shadow: 0 0 20px rgba(184, 134, 11, 0.3);
-}
-
-.Control-Wrapper {
-  margin-top: 2rem;
-  padding: 2rem;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-  display: flex;
-  flex-direction: column;
-  border-radius: 12px;
-  border: 2px solid #8B4513;
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  color: #f77f00;
+  border-color: #f77f00;
+  box-shadow: 0 0 25px rgba(247, 127, 0, 0.5);
 }

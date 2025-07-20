@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import TabsButton from './TabsButton';
+import soundEffects from '../utils/soundEffects';
 
 function Pomodoro() {
   const [activeTab, setActiveTab] = useState('Focus');
@@ -9,11 +10,12 @@ function Pomodoro() {
 
   const tabs = [
     { name: 'Focus', duration: 25 * 60, timerClass: 'focus-timer' },
-    { name: 'Short Break', duration: 5 * 60, timerClass: 'short-break-timer' },
-    { name: 'Long Break', duration: 15 * 60, timerClass: 'long-break-timer' },
+    { name: 'Short Break', duration: 5 * 60, timerClass: 'focus-timer' },
+    { name: 'Long Break', duration: 15 * 60, timerClass: 'focus-timer' },
   ];
 
   const handleTabClick = (tab) => {
+    soundEffects.playButtonClick();
     setActiveTab(tab.name);
     setTimeLeft(tab.duration);
     setIsRunning(false);
@@ -21,6 +23,7 @@ function Pomodoro() {
   };
 
   const handleStartStop = () => {
+    soundEffects.playButtonClick();
     if (isRunning) {
       clearInterval(timerRef.current);
       setIsRunning(false);
@@ -31,12 +34,19 @@ function Pomodoro() {
           if (prevTime <= 1) {
             clearInterval(timerRef.current);
             setIsRunning(false);
+            // Play completion sound when timer finishes
+            soundEffects.playQuestComplete();
             return 0;
           }
           return prevTime - 1;
         });
       }, 1000);
     }
+  };
+
+  // Handle button hover sounds
+  const handleButtonHover = () => {
+    soundEffects.playButtonHover();
   };
 
   const getTimerClass = () => {
@@ -64,6 +74,7 @@ function Pomodoro() {
               key={tab.name}
               className={`pomodoro-tab ${activeTab === tab.name ? 'active' : ''}`}
               onClick={() => handleTabClick(tab)}
+              onMouseEnter={handleButtonHover}
             >
               {tab.name}
             </button>
@@ -72,7 +83,12 @@ function Pomodoro() {
         <div className={`timer-display ${getTimerClass()}`}>
           {formatTime(timeLeft)}
         </div>
-        <TabsButton outerClass="wrapper" text={isRunning ? 'Pause' : 'Start'} onClick={handleStartStop} />
+        <TabsButton 
+          outerClass="wrapper" 
+          text={isRunning ? 'Pause' : 'Start'} 
+          onClick={handleStartStop}
+          onMouseEnter={handleButtonHover}
+        />
       </div>
     </div>
   );
