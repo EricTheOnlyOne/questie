@@ -6,11 +6,28 @@ html, body, #root, .App, .App-header {
 }
 
 .header {
-  border-bottom: .5px solid #4c515a47;
+  border-bottom: 2px solid #8B4513;
   box-sizing: border-box;
-  padding: .5rem;
-  margin: 0 1rem;
-  font-size: 24px;
+  padding: 1rem;
+  margin: 0 1rem 1.5rem 1rem;
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(139, 69, 19, 0.2) 0%, rgba(218, 165, 32, 0.1) 100%);
+  border-radius: 8px 8px 0 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  position: relative;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #DAA520 50%, transparent 100%);
 }
 
 textarea {
@@ -70,12 +87,14 @@ div.wrapper {
 }
 
 .Control-Wrapper {
-  margin-top: 5rem;
-  padding: 1rem 2rem;
-  background: #4c515a47;
+  margin-top: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
   display: flex;
   flex-direction: column;
-  border-radius: 6px;
+  border-radius: 12px;
+  border: 2px solid #8B4513;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .times-wrapper{
@@ -116,6 +135,79 @@ button.active {
   min-width: 400px;
 }
 
+/* Mobile Responsive Design */
+@media (max-width: 960px) {
+  .App {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+  
+  .pomodoro-container {
+    min-width: unset;
+    width: 100%;
+  }
+  
+  .col-container {
+    width: 100%;
+  }
+}
+
+/* Mobile Swipe Navigation */
+@media (max-width: 768px) {
+  .App {
+    overflow-x: hidden;
+    position: relative;
+  }
+  
+  .mobile-container {
+    display: flex;
+    width: 200%;
+    transition: transform 0.3s ease;
+  }
+  
+  .mobile-page {
+    width: 50%;
+    min-height: 100vh;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  
+  .mobile-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border-radius: 25px;
+    border: 1px solid #8B4513;
+  }
+  
+  .mobile-nav-btn {
+    background: linear-gradient(135deg, #4c515a 0%, #3d4149 100%);
+    border: 1px solid #8B4513;
+    border-radius: 20px;
+    padding: 8px 16px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .mobile-nav-btn.active {
+    background: linear-gradient(135deg, #fc4a1f 0%, #e63946 100%);
+    box-shadow: 0 0 10px rgba(252, 74, 31, 0.4);
+  }
+  
+  .mobile-nav-btn:hover {
+    transform: translateY(-2px);
+  }
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -143,22 +235,23 @@ button.active {
 
 .Tabs-button, .Tabs-input {
   cursor: pointer;
-  color: white;
+  color: #DAA520;
   padding: 10px 100px;
-  background-color: #fc4a1f;
+  background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+  border: 1px solid #DAA520;
   border-radius: 6px;
-  border: none;
   font-size: 28px;
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 400;
+  font-weight: 600;
   font-style: normal;
-  transition: background-color 0.2s, transform 0.2s;
+  transition: all 0.3s ease;
   margin: 10px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .Tabs-button-icon {
@@ -184,13 +277,15 @@ button.active {
 }
 
 .Tabs-button:hover, .Tabs-input:hover {
-  background-color: rgba(220, 220, 220, 0.1);
+  background: linear-gradient(135deg, #A0522D 0%, #8B4513 100%);
+  box-shadow: 0 0 10px rgba(218, 165, 32, 0.4);
+  transform: translateY(-1px);
   animation: bounce-in 0.22s forwards;
-  color: #FC4A1F;
 }
 
 .Tabs-button:active, .Tabs-input:active {
-  background-color: rgba(220, 220, 220, 0.2);
+  transform: translateY(0);
+  box-shadow: 0 0 5px rgba(218, 165, 32, 0.3);
 }
 
 .Tabs-button:not(:hover), .Tabs-input:not(:hover) {
@@ -373,6 +468,28 @@ button.active {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  max-height: 50vh;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+/* Custom scrollbar for quest list */
+.quest-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.quest-list::-webkit-scrollbar-thumb {
+  background: #8B4513;
+  border-radius: 3px;
+}
+
+.quest-list::-webkit-scrollbar-thumb:hover {
+  background: #DAA520;
+}
+
+.quest-list::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
 }
 
 .quest-item {
@@ -455,7 +572,7 @@ button.active {
   gap: 0.5rem;
   margin-top: 1.5rem;
   padding-top: 1rem;
-  border-top: 1px solid #8B4513;
+  border-top: 2px solid #8B4513;
 }
 
 .new-quest-input {
@@ -578,16 +695,16 @@ button.active {
 
 /* Pomodoro Timer Styles */
 .pomodoro-tab {
-  border: none;
-  color: white;
+  border: 1px solid #8B4513;
+  color: #DAA520;
   margin: 0px;
   border-radius: 4px;
-  font-family: 'Cinzel', serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 14px;
   padding: 8px 16px;
   height: auto;
   cursor: pointer;
-  background: linear-gradient(135deg, #4c515a 0%, #3d4149 100%);
+  background: linear-gradient(135deg, #4A4A4A 0%, #2A2A2A 100%);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   font-weight: 500;
   transition: all 0.3s ease;
@@ -595,15 +712,16 @@ button.active {
 }
 
 .pomodoro-tab:hover {
-  background: linear-gradient(135deg, #5c616a 0%, #4d5259 100%);
+  border-color: #DAA520;
+  box-shadow: 0 0 8px rgba(218, 165, 32, 0.3);
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .pomodoro-tab.active {
-  background: linear-gradient(135deg, #fc4a1f 0%, #e63946 100%);
-  color: white;
-  box-shadow: 0 0 15px rgba(252, 74, 31, 0.4);
+  background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+  border-color: #DAA520;
+  color: #DAA520;
+  box-shadow: 0 0 15px rgba(218, 165, 32, 0.4);
 }
 
 .pomodoro-tab:active {
@@ -613,46 +731,46 @@ button.active {
 
 .timer-display {
   font-size: 4rem;
-  font-family: 'Cinzel', serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 600;
-  color: #fc4a1f;
+  color: #DAA520;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
   margin: 2rem 0;
   padding: 1rem;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 100%);
   border-radius: 12px;
-  border: 2px solid rgba(252, 74, 31, 0.3);
+  border: 2px solid #8B4513;
   min-width: 300px;
   text-align: center;
   transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(218, 165, 32, 0.2);
 }
 
 .timer-display.focus-timer {
-  color: #fc4a1f;
-  border-color: rgba(252, 74, 31, 0.5);
-  box-shadow: 0 0 20px rgba(252, 74, 31, 0.2);
+  color: #DAA520;
+  border-color: #8B4513;
+  box-shadow: 0 0 20px rgba(218, 165, 32, 0.3);
 }
 
 .timer-display.short-break-timer {
-  color: #4ecdc4;
-  border-color: rgba(78, 205, 196, 0.5);
-  box-shadow: 0 0 20px rgba(78, 205, 196, 0.2);
+  color: #CD853F;
+  border-color: #8B4513;
+  box-shadow: 0 0 20px rgba(205, 133, 63, 0.3);
 }
 
 .timer-display.long-break-timer {
-  color: #45b7d1;
-  border-color: rgba(69, 183, 209, 0.5);
-  box-shadow: 0 0 20px rgba(69, 183, 209, 0.2);
+  color: #B8860B;
+  border-color: #8B4513;
+  box-shadow: 0 0 20px rgba(184, 134, 11, 0.3);
 }
 
 .Control-Wrapper {
   margin-top: 2rem;
   padding: 2rem;
-  background: linear-gradient(135deg, rgba(76, 81, 90, 0.4) 0%, rgba(61, 65, 73, 0.4) 100%);
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
   display: flex;
   flex-direction: column;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
+  border: 2px solid #8B4513;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
 }
