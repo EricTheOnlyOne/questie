@@ -55,14 +55,14 @@ function Pomodoro() {
   }, []);
 
   return (
-    <div className="col-container">
-      <div className="header">Pomodoro</div>
+    <div className="pomodoro-container">
+      <div className="header">Pomodoro Timer</div>
       <div className="Control-Wrapper">
-        <div class="times-wrapper">
+        <div className="times-wrapper">
           {tabs.map((tab) => (
             <button
               key={tab.name}
-              className={`minimal ${activeTab === tab.name ? 'active' : ''}`}
+              className={`pomodoro-tab ${activeTab === tab.name ? 'active' : ''}`}
               onClick={() => handleTabClick(tab)}
             >
               {tab.name}
@@ -72,7 +72,7 @@ function Pomodoro() {
         <div className={`timer-display ${getTimerClass()}`}>
           {formatTime(timeLeft)}
         </div>
-        <TabsButton outerClass="wrapper" text={isRunning ? 'Stop' : 'Start'} onClick={handleStartStop} />
+        <TabsButton outerClass="wrapper" text={isRunning ? 'Pause' : 'Start'} onClick={handleStartStop} />
       </div>
     </div>
   );

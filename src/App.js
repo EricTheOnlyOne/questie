@@ -8,10 +8,10 @@ function App() {
   return (
     <AnimatedComponent>
       <div className="App">
-        <div class="col-container" />
         <Pomodoro/>
         <Quests />
       </div>
+      <p className="source">Inspired by pomofocus.io</p>
     </AnimatedComponent>
   );
 }
