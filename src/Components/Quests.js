@@ -5,6 +5,8 @@ export default function Quests() {
   const [completedQuests, setCompletedQuests] = useState([]);
   const [showCompleted, setShowCompleted] = useState(false);
   const [newQuest, setNewQuest] = useState("");
+  const [draggedIndex, setDraggedIndex] = useState(null);
+  const [dragOverIndex, setDragOverIndex] = useState(null);
 
   // Load data from localStorage on component mount
   useEffect(() => {
@@ -55,15 +57,30 @@ export default function Quests() {
 
   const handleSubtaskChange = (questIndex, subtaskIndex, value) => {
     const updatedQuests = [...quests];
-    
-    if (value.trim() === "") {
-      // Remove subtask if text is empty
-      updatedQuests[questIndex].subtasks.splice(subtaskIndex, 1);
-    } else {
-      updatedQuests[questIndex].subtasks[subtaskIndex].text = value;
-    }
-    
+    updatedQuests[questIndex].subtasks[subtaskIndex].text = value;
     setQuests(updatedQuests);
+  };
+
+  const handleSubtaskKeyDown = (e, questIndex, subtaskIndex) => {
+    if (e.key === "Tab") {
+      e.preventDefault();
+      const updatedQuests = [...quests];
+      const newSubtask = {
+        id: Date.now(),
+        text: "",
+        completed: false
+      };
+      updatedQuests[questIndex].subtasks.push(newSubtask);
+      setQuests(updatedQuests);
+    } else if (e.key === "Backspace") {
+      const subtask = quests[questIndex].subtasks[subtaskIndex];
+      if (subtask.text.trim() === "") {
+        e.preventDefault();
+        const updatedQuests = [...quests];
+        updatedQuests[questIndex].subtasks.splice(subtaskIndex, 1);
+        setQuests(updatedQuests);
+      }
+    }
   };
 
   const toggleQuestComplete = (index) => {
@@ -100,7 +117,7 @@ export default function Quests() {
     const questToRestore = { ...completedQuests[completedIndex] };
     delete questToRestore.completedAt;
     questToRestore.completed = false;
-    questToRestore.subtasks = questToRestore.subtasks.map(st => ({ ...st, completed: false }));
+    // Keep subtask completion states when restoring
     
     setQuests(prev => [...prev, questToRestore]);
     setCompletedQuests(prev => prev.filter((_, i) => i !== completedIndex));
@@ -120,6 +137,51 @@ export default function Quests() {
     }
   };
 
+  // Drag and drop handlers
+  const handleDragStart = (e, index) => {
+    setDraggedIndex(index);
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDragOver = (e, index) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    setDragOverIndex(index);
+  };
+
+  const handleDragLeave = () => {
+    setDragOverIndex(null);
+  };
+
+  const handleDrop = (e, dropIndex) => {
+    e.preventDefault();
+    
+    if (draggedIndex === null || draggedIndex === dropIndex) {
+      setDraggedIndex(null);
+      setDragOverIndex(null);
+      return;
+    }
+
+    const updatedQuests = [...quests];
+    const draggedQuest = updatedQuests[draggedIndex];
+    
+    // Remove dragged quest from its original position
+    updatedQuests.splice(draggedIndex, 1);
+    
+    // Insert at new position
+    const insertIndex = draggedIndex < dropIndex ? dropIndex - 1 : dropIndex;
+    updatedQuests.splice(insertIndex, 0, draggedQuest);
+    
+    setQuests(updatedQuests);
+    setDraggedIndex(null);
+    setDragOverIndex(null);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedIndex(null);
+    setDragOverIndex(null);
+  };
+
   return (
     <div className="col-container">
       <div className="header">Quest Log</div>
@@ -129,8 +191,20 @@ export default function Quests() {
         <div className="quest-section">
           <div className="quest-list">
             {quests.map((quest, i) => (
-              <div key={quest.id} className={`quest-item ${quest.completed ? 'quest-completed' : ''}`}>
+              <div 
+                key={quest.id} 
+                className={`quest-item ${quest.completed ? 'quest-completed' : ''} ${
+                  draggedIndex === i ? 'quest-dragging' : ''
+                } ${dragOverIndex === i ? 'quest-drag-over' : ''}`}
+                draggable={true}
+                onDragStart={(e) => handleDragStart(e, i)}
+                onDragOver={(e) => handleDragOver(e, i)}
+                onDragLeave={handleDragLeave}
+                onDrop={(e) => handleDrop(e, i)}
+                onDragEnd={handleDragEnd}
+              >
                 <div className="quest-header">
+                  <div className="drag-handle">⋮⋮</div>
                   <input
                     type="checkbox"
                     className="quest-checkbox"
@@ -160,7 +234,7 @@ export default function Quests() {
                       className="subtask-text"
                       value={subtask.text}
                       onChange={(e) => handleSubtaskChange(i, j, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, i, j)}
+                      onKeyDown={(e) => handleSubtaskKeyDown(e, i, j)}
                       placeholder="Subtask... (Tab to add another)"
                       rows="1"
                     />
@@ -200,11 +274,13 @@ export default function Quests() {
               {completedQuests.map((quest, i) => (
                 <div key={quest.id} className="completed-quest-item">
                   <div className="completed-quest-text">{quest.text}</div>
-                  {quest.subtasks.map((subtask, j) => (
-                    <div key={subtask.id} className="completed-subtask-text">
-                      • {subtask.text}
-                    </div>
-                  ))}
+                  <div className="completed-quest-info">
+                    {quest.subtasks.length > 0 && (
+                      <div className="subtask-count">
+                        {quest.subtasks.filter(st => st.completed).length}/{quest.subtasks.length} subtasks completed
+                      </div>
+                    )}
+                  </div>
                   <button 
                     className="restore-quest-btn"
                     onClick={() => restoreQuest(i)}
